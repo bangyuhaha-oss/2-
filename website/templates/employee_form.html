@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit employee' if employee else 'Add employee' }}{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('employee_detail', employee_id=employee.id, **directory_args) if employee else directory_url }}">← {{ 'Back to record' if employee else 'Back to workforce' }}</a>
+<div class="page-heading"><div><p class="eyebrow">HR · EMPLOYEE RECORD</p><h1>{{ 'Edit employee' if employee else 'Add employee' }}</h1><p class="muted">Seven information groups. Only the name is required.</p></div></div>
+<form method="post" class="panel record-form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% if employee %}<input type="hidden" name="version" value="{{ values.get('version',employee.version) }}">{% endif %}
+  <div class="form-grid">
+  <div><label for="name">Name <span class="required">Required</span></label><input id="name" name="name" required maxlength="120" value="{{ values.get('name','') }}"></div>
+  <div><label for="age">Age</label><input id="age" name="age" inputmode="numeric" maxlength="9" value="{{ values.get('age','') if values.get('age') is not none else '' }}"><small>Optional. A non-negative whole number.</small></div>
+  <div><label for="position">Position</label><input id="position" name="position" maxlength="1000" value="{{ values.get('position','') }}"></div>
+  <div><label for="department">Department</label><input id="department" name="department" maxlength="1000" value="{{ values.get('department','') }}"></div>
+  <div class="full"><label for="address">Address</label><textarea id="address" name="address" maxlength="1000" rows="2">{{ values.get('address','') }}</textarea></div>
+  <div><label for="pay_info">Pay information</label><textarea id="pay_info" name="pay_info" maxlength="1000" rows="3">{{ values.get('pay_info','') }}</textarea><small>Free text. No payroll calculation or payment.</small></div>
+  <div><label for="emergency_contact">Emergency contact</label><textarea id="emergency_contact" name="emergency_contact" maxlength="1000" rows="3">{{ values.get('emergency_contact','') }}</textarea></div>
+  </div>
+  <div class="form-actions"><button class="primary" type="submit">{{ 'Save changes' if employee else 'Save employee' }}</button><a class="button quiet" href="{{ url_for('employee_detail', employee_id=employee.id, **directory_args) if employee else directory_url }}">Cancel</a></div>
+  <p class="fine">Team membership and sign-in accounts are configured separately by the installation administrator.</p>
+</form>
+{% endblock %}

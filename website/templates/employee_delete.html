@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Confirm deletion{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('employee_detail',employee_id=employee.id, **directory_args) }}">← Back to record</a>
+<section class="panel narrow"><p class="eyebrow">CONFIRM EMPLOYEE DEPARTURE</p><h1>Delete {{ employee.name }}?</h1><p>Record #{{ employee.id }} will be permanently removed from this application.</p>
+<ul class="plain-list"><li>Employee details will be deleted.</li><li>Linked accounts and active sessions will be removed.</li><li>Linked shift assignments and check-in history will be deleted.</li></ul>
+<p>Database backups are separate files. They are not changed by this action.</p>
+<form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="version" value="{{ employee.version }}"><label for="confirmation">Type <strong>{{ employee.name }}</strong> to confirm</label><input id="confirmation" name="confirmation" required autocomplete="off"><div class="form-actions"><button class="danger" type="submit">Permanently delete employee</button><a class="button quiet" href="{{ url_for('employee_detail',employee_id=employee.id, **directory_args) }}">Cancel</a></div></form></section>
+{% endblock %}

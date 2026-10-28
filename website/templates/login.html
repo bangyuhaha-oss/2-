@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<section class="login-layout">
+  <div class="login-intro"><p class="eyebrow">THE WORKFORCE WORKSPACE</p><h1>A clear view.<br>A better working week.</h1><p class="lead">Keep employee information together, arrange team shifts, and know when you are working.</p>
+    <div class="intro-rule"></div><p>One store. Three roles.<br>Only the information each person needs.</p>
+  </div>
+  <section class="login-form panel"><p class="eyebrow">WELCOME BACK</p><h2>Sign in</h2><p class="muted">Use your assigned store account.</p>
+    <form method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <label for="username">Username</label><input id="username" name="username" autocomplete="username" maxlength="120" required value="{{ request.form.get('username','') }}">
+      <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button class="primary wide" type="submit">Sign in to workspace <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="fine">Contact the installation administrator if you need an account.</p>
+  </section>
+</section>
+{% endblock %}

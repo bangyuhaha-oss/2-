@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Check in{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('my_schedule') }}">← Back to my schedule</a>
+<div class="page-heading"><div><p class="eyebrow">PERSONAL CHECK-IN</p><h1>Ready for your shift.</h1><p class="muted">Check in with your own account from the configured workplace network.</p></div><a class="button quiet" href="{{ url_for('my_checkins') }}">View my check-in history →</a></div>
+<div class="notice" role="note"><strong>Classroom connection simulation.</strong> The default installation accepts this computer's loopback source only. A local success demonstrates the server rule; it does not verify presence at the Zhengzhou store. Real workplace and remote-network acceptance have not been performed.</div>
+<div class="checkin-layout"><section class="panel"><span class="status-label {{ 'available' if onsite else 'unavailable' }}">{{ 'Workplace connection available' if onsite else 'Remote connection · check-in unavailable' }}</span><h2>{{ employee.name }}</h2><p>Employee record #{{ employee.id }}</p><p class="muted">Your identity and the current time will be recorded when check-in succeeds. Times use China Standard Time (UTC+8).</p>
+<form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><input type="hidden" name="operation_id" value="{{ operation_id }}"><button type="submit" class="primary" {% if not onsite %}disabled{% endif %}>Check in now →</button></form>
+<p class="fine">The server verifies the connection again when you submit. This action does not calculate attendance, worked hours or pay.</p></section><section class="panel"><div class="section-heading"><div><h2>Recent check-ins</h2><p class="muted">Your latest ten records</p></div><a class="text-link" href="{{ url_for('my_checkins') }}">All records →</a></div>{% for row in history %}<div class="history-row"><span class="history-dot" aria-hidden="true"></span><span><strong>Check-in saved</strong><small>{{ row.recorded_at }}</small></span></div>{% else %}<p class="empty">No check-ins yet.</p>{% endfor %}</section></div>
+{% endblock %}

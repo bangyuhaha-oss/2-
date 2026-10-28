@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Employee record{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ directory_url }}">← Back to workforce</a>
+<div class="page-heading"><div><p class="eyebrow">HR · RECORD #{{ employee.id }}</p><h1>{{ employee.name }}</h1><p class="muted">{{ employee.position or 'Position not provided' }} · {{ employee.department or 'Department not provided' }}</p></div><a class="button primary" href="{{ url_for('employee_edit',employee_id=employee.id, **directory_args) }}">Edit employee</a></div>
+<section class="panel"><h2>Employee information</h2><dl class="record-grid">{% for key, label in [('name','Name'),('age','Age'),('position','Position'),('department','Department'),('address','Address'),('pay_info','Pay information'),('emergency_contact','Emergency contact')] %}<div><dt>{{ label }}</dt><dd>{{ employee[key] if employee[key] is not none and employee[key] != '' else 'Not provided' }}</dd></div>{% endfor %}</dl></section>
+<section class="danger-zone"><div><h2>Employee departure</h2><p>Delete the record and revoke all linked access. Confirmation is required on the next page.</p></div><a class="button danger-outline" href="{{ url_for('employee_delete',employee_id=employee.id, **directory_args) }}">Delete employee</a></section>
+{% endblock %}

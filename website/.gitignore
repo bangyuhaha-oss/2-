@@ -1,0 +1,5 @@
+.venv/
+.install-check*/
+instance/
+__pycache__/
+*.pyc

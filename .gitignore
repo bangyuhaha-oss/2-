@@ -1,0 +1,22 @@
+# local runtime state
+.venv/
+instance/
+*.sqlite
+*.sqlite3
+*.db
+*.key
+.secret
+board.sqlite
+
+# python
+__pycache__/
+*.py[cod]
+.install-check*/
+
+# office and OS
+~$*
+Thumbs.db
+desktop.ini
+
+# logs and temporary output
+*.log
